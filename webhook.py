@@ -1,5 +1,5 @@
 """
-Webhook router for 360dialog WhatsApp incoming messages.
+Webhook router for WhatsApp Cloud API incoming messages.
 Handles verification (GET) and message ingestion (POST).
 
 Full pipeline:
@@ -69,7 +69,7 @@ async def verify_webhook(
     hub_challenge: str = Query(None, alias="hub.challenge"),
 ) -> Response:
     """
-    360dialog (and Meta-compatible) webhook verification.
+    Meta webhook verification.
     Echoes back hub.challenge if the token matches.
     """
     if hub_mode == "subscribe" and hub_verify_token == WEBHOOK_VERIFY_TOKEN:
@@ -93,7 +93,7 @@ async def verify_webhook(
 @router.post("", status_code=status.HTTP_200_OK)
 async def receive_message(request: Request) -> dict:
     """
-    Receive an incoming WhatsApp message from 360dialog.
+    Receive an incoming WhatsApp message from Meta WhatsApp Cloud API.
 
     Flow:
     1. Parse the payload.
@@ -102,7 +102,7 @@ async def receive_message(request: Request) -> dict:
     4. If text -> route through: keyword rules -> handoff -> AI.
     5. Log every exchange to Google Sheets.
 
-    Always returns 200 to prevent 360dialog from retrying.
+    Always returns 200 to prevent webhook retries.
     """
     try:
         payload = await request.json()

@@ -1,12 +1,12 @@
 # Fab's Beauty Salon — WhatsApp Chatbot
 
-Production-ready WhatsApp chatbot for **Fab's Beauty Salon** using the **360dialog** API, built with Python + FastAPI.
+Production-ready WhatsApp chatbot for **Fab's Beauty Salon** using the **Meta WhatsApp Cloud API**, built with Python + FastAPI.
 
 ---
 
 ## Features
 
-- Receives and validates incoming WhatsApp webhooks from 360dialog
+- Receives and validates incoming WhatsApp webhooks from Meta WhatsApp Cloud API
 - Parses text messages and extracts sender info, message ID, timestamp
 - Rule-based keyword replies for services, hours, booking, and location
 - Politely rejects non-text messages (images, voice notes, stickers)
@@ -23,7 +23,7 @@ Production-ready WhatsApp chatbot for **Fab's Beauty Salon** using the **360dial
 Customer (WhatsApp)
        │
        ▼
- 360dialog Cloud  ──▶  POST /webhook  ──▶  message_parser.py
+ Meta Cloud API  ──▶  POST /webhook  ──▶  message_parser.py
                                   │
                                   ▼
                           webhook.py (routing logic)
@@ -31,7 +31,7 @@ Customer (WhatsApp)
                           ▼                       ▼
                     responder.py            logger.py
                   (send reply via         (log to Google
-                   360dialog API)           Sheets)
+                   Meta API)                Sheets)
 ```
 
 ---
@@ -40,7 +40,7 @@ Customer (WhatsApp)
 
 - **Python 3.11+**
 - **Ubuntu 22.04 VPS** (tested)
-- **360dialog account** with an approved WhatsApp Business API number
+- **Meta WhatsApp Cloud API access** with an approved WhatsApp Business number
 - **Google Cloud service account** with Sheets API enabled
 - **Domain name** pointed at your VPS IP (for SSL)
 
@@ -266,16 +266,16 @@ sudo systemctl status caddy
 # Caddy automatically provisions SSL via Let's Encrypt!
 ```
 
-### 9. Configure 360dialog Webhook URL
+### 9. Configure Meta Webhook URL
 
-1. Log in to your [360dialog Dashboard](https://hub.360dialog.com)
-2. Go to **Settings → Webhooks**
-3. Set the webhook URL to:
+1. Open your Meta app dashboard for WhatsApp webhook configuration
+2. Go to **WhatsApp → Configuration → Webhook**
+3. Set the callback URL to:
    ```
    https://your-domain.com/webhook
    ```
 4. Set the verify token to the same value as `WEBHOOK_VERIFY_TOKEN` in your `.env`
-5. Save and test the connection
+5. Save, verify, and test the connection
 
 ### 10. Verify Everything Works
 
@@ -315,7 +315,7 @@ fabs_chatbot/
 ├── config.py            ← All environment variables loaded here
 ├── webhook.py           ← Receives and validates incoming WhatsApp webhooks
 ├── message_parser.py    ← Extracts sender phone, message text, ID, timestamp
-├── responder.py         ← Sends replies back via 360dialog API
+├── responder.py         ← Sends replies back via Meta WhatsApp API
 ├── logger.py            ← Logs every conversation turn to Google Sheets
 ├── requirements.txt     ← All dependencies
 ├── .env.example         ← Template showing all required environment variables

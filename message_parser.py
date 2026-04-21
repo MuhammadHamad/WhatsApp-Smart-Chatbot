@@ -1,5 +1,5 @@
 """
-Message parser for 360dialog WhatsApp webhook payloads.
+Message parser for WhatsApp Cloud API webhook payloads.
 Extracts structured data from raw JSON payloads.
 """
 
@@ -14,7 +14,7 @@ class ParsedMessage:
     """Immutable representation of a parsed incoming WhatsApp message."""
 
     sender_phone: str       # E.164 phone number without '+', e.g. "923001234567"
-    message_id: str         # Unique 360dialog message ID, e.g. "wamid.xxxxx"
+    message_id: str         # Unique WhatsApp message ID, e.g. "wamid.xxxxx"
     timestamp: str          # Unix timestamp as string
     message_text: str       # The actual text content (empty string for non-text)
     message_type: str       # "text", "image", "audio", "sticker", "video", etc.

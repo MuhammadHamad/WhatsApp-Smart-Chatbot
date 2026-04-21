@@ -1,6 +1,6 @@
 # Webhook Cutover and Testing
 
-## 1) Set webhook URL in Meta/360dialog
+## 1) Set webhook URL in Meta
 
 Set:
 - Webhook URL: `https://your-domain.com/webhook`

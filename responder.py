@@ -1,5 +1,5 @@
 """
-Responder module for sending replies via the 360dialog WhatsApp API.
+Responder module for sending replies via the Meta WhatsApp Cloud API.
 Includes retry logic and structured error handling.
 """
 

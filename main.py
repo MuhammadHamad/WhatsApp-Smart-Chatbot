@@ -25,7 +25,7 @@ logger = logging.getLogger("fabs_chatbot")
 # ── FastAPI application ────────────────────────────────────────────────
 app = FastAPI(
     title="Fab's Beauty Salon Chatbot",
-    description="WhatsApp chatbot for Fab's Beauty Salon via 360dialog",
+    description="WhatsApp chatbot for Fab's Beauty Salon via Meta WhatsApp Cloud API",
     version="1.0.0",
     docs_url="/docs",
     redoc_url=None,
